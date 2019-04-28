@@ -3,6 +3,7 @@ package ar.edu.unlam.tallerweb1;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.*;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.hibernate.criterion.Restrictions;
@@ -133,7 +134,7 @@ public class testMapeos extends SpringTest {
 	@Test
 	@Transactional
 	@Rollback (true)
-	public void testQueFiltraLlamadas(){
+	public void testQueVerificaCantidadDeLlamadas(){
 		Empresa empresa1 = new Empresa();
 		empresa1.setNombre("Diamante");
 		getSession().save(empresa1);
@@ -186,5 +187,74 @@ public class testMapeos extends SpringTest {
 		
 	}
 	
+
+	@Test
+	@Transactional
+	@Rollback (true)
+	public void testQueVerificaCalleDeLaCentralDondeSeHizoLaLlamada(){
+		Empresa empresa1 = new Empresa();
+		empresa1.setNombre("Diamante");
+		getSession().save(empresa1);
+		Empresa empresa2 = new Empresa();
+		empresa2.setNombre("Rubi");
+		getSession().save(empresa2);
+		
+		
+		Sucursal sucursal1 = new Sucursal("Arroyo", 897, empresa1);
+		Sucursal sucursal2 = new Sucursal("Salguero", 1542, empresa1);
+		getSession().save(sucursal1);
+		getSession().save(sucursal2);
+		
+		
+		Central central1 = new Central("Antena Norte", "Cordoba 1345", sucursal1);
+		Central central2 = new Central("Pampa Antena", "Darragueira 687", sucursal2);
+		getSession().save(central1);
+		getSession().save(central2);
+		
+		
+		Llamada llamada1 = new Llamada(30,central1);
+		Llamada llamada2 = new Llamada(45,central1);
+		Llamada llamada3 = new Llamada(10,central2);
+		Llamada llamada4 = new Llamada(25,central2);
+		Llamada llamada5 = new Llamada(10,central1);
+		getSession().save(llamada1);
+		getSession().save(llamada2);
+		getSession().save(llamada3);
+		getSession().save(llamada4);
+		getSession().save(llamada5);
+		
+
+		List <Llamada> registroLlamadas = getSession().createCriteria(Llamada.class)
+			.add(Restrictions.gt("duracion",20))
+				
+			.createAlias("central", "buscaCentral")
+			.add(Restrictions.eq("buscaCentral.calle","Cordoba 1345"))
+			
+	    	.createAlias("central.sucursal", "buscaSucursal")
+
+			.createAlias("central.sucursal.empresa", "buscaEmpresa")
+			.add(Restrictions.eq("buscaEmpresa.nombre", "Diamante"))
+			
+			.list();
+	
+		
+		for (Llamada registro: registroLlamadas) {
+			assertTrue(registro.getDuracion()>20);
+			assertThat(central1.getCalle()).isEqualTo(registro.getCentral().getCalle());
+			assertThat(empresa1.getNombre()).isEqualTo(registro.getCentral().getSucursal().getEmpresa().getNombre());
+		}
+		
+// Lo mismo que con el Foreach, pero con Iterator
+		
+/*		Iterator <Llamada> r = registroLlamadas.iterator();
+		
+		Llamada registro;
+		while(r.hasNext()) {
+			registro = r.next();
+			assertTrue(registro.getDuracion()>20);
+			assertThat(central1.getCalle()).isEqualTo(registro.getCentral().getCalle());
+			assertThat(empresa1.getNombre()).isEqualTo(registro.getCentral().getSucursal().getEmpresa().getNombre());
+		}*/
+	}
 	
 }
