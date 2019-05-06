@@ -15,13 +15,13 @@ import ar.edu.unlam.tallerweb1.modelo.Continente;
 import ar.edu.unlam.tallerweb1.modelo.Pais;
 import ar.edu.unlam.tallerweb1.modelo.Ubicacion;
 
-public class testCiudadPaisContinente extends SpringTest {
+public class testCiudadPaisContinente3 extends SpringTest {
 
 	
 	@Test
 	@Transactional
 	@Rollback (true)
-	public void testQueBuscaTodosLosPaisesDeHablaInglesa() {
+	public void testQueBuscaTodosLosPaisesCuyaCapitalEstanAlNorteDelTropicoDeCancer() {
 		Continente continente1 = new Continente("Oceanía");
 		Continente continente2 = new Continente("America");
 		Continente continente3 = new Continente("Africa");
@@ -178,13 +178,16 @@ public class testCiudadPaisContinente extends SpringTest {
 		
 		
 		
-		List <Pais> ingles = getSession().createCriteria(Pais.class)
-				.add(Restrictions.eq("idioma", "Ingles"))
+		List <Ciudad> continenteEuropeo = getSession().createCriteria(Ciudad.class)
+			//	.createAlias("ubicacion", "buscaLatitud")
+			//	.add(Restrictions.gt("buscaLatitud.latitud", 23.0D))
+				.createAlias("pais", "buscaCapital")
+				.add(Restrictions.isNull("buscaCapital.capital"))
 				.list();
 		
 		
-		Integer valorEsperado = 2;
-		Integer valorObtenido = ingles.size();
+		Integer valorEsperado = 7;
+		Integer valorObtenido = continenteEuropeo.size();
 		assertEquals(valorEsperado, valorObtenido);
 		
 	}
