@@ -15,13 +15,13 @@ import ar.edu.unlam.tallerweb1.modelo.Continente;
 import ar.edu.unlam.tallerweb1.modelo.Pais;
 import ar.edu.unlam.tallerweb1.modelo.Ubicacion;
 
-public class testCiudadPaisContinente3 extends SpringTest {
+public class testCiudadPaisContinente4 extends SpringTest {
 
 	
 	@Test
 	@Transactional
 	@Rollback (true)
-	public void testQueBuscaTodosLosPaisesCuyaCapitalEstanAlNorteDelTropicoDeCancer() {
+	public void testQueBuscaTodasLasCiudadesDelHemisferioSur() {
 		Continente continente1 = new Continente("Oceanía");
 		Continente continente2 = new Continente("America");
 		Continente continente3 = new Continente("Africa");
@@ -178,29 +178,14 @@ public class testCiudadPaisContinente3 extends SpringTest {
 		
 		
 		
-		List <Pais> capitalesTropicoCancer = getSession().createCriteria(Pais.class)
-				.createAlias("capital", "buscaCapital")
-				.createAlias("capital.ubicacion", "buscaLatitud")
-				.add(Restrictions.gt("buscaLatitud.latitud", 23.0D))
-				
-				
-				
-		/*		.createAlias("ubicacion", "buscaLatitud")
-				.add(Restrictions.gt("buscaLatitud.latitud", 23.0D))
-				
-				.createAlias("pais", "buscaCapital")
-				.add(Restrictions.isNotNull("buscaCapital.capital"))
-				
-				.createAlias("pais.capital", "buscaCiudad")
-				.add(Restrictions.eq("buscaCiudad.nombre", "buscaCapital.capital"))
-		    	.add(Restrictions.isNotEmpty("buscaCapital.capital"))*/
-				
-				
+		List <Ciudad> continenteEuropeo = getSession().createCriteria(Ciudad.class)
+				.createAlias("ubicacion", "buscaLatitud")
+				.add(Restrictions.lt("buscaLatitud.latitud", 0.0D))
 				.list();
 		
 		
-		Integer valorEsperado = 7;
-		Integer valorObtenido = capitalesTropicoCancer.size();
+		Integer valorEsperado = 9;
+		Integer valorObtenido = continenteEuropeo.size();
 		assertEquals(valorEsperado, valorObtenido);
 		
 	}
