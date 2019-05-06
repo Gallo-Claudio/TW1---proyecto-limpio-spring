@@ -4,6 +4,7 @@ import javax.persistence.*;
 
 @Entity
 public class Ciudad {
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nombre;
 	@ManyToOne

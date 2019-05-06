@@ -1,9 +1,12 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 
 @Entity
 public class Ubicacion {
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private Double latitud;
 	private Double longitud;

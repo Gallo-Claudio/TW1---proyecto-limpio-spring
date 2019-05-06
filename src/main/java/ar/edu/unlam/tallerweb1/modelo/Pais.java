@@ -4,12 +4,13 @@ import javax.persistence.*;
 
 @Entity
 public class Pais {
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nombre;
 	private Integer habitantes;
 	private String idioma;
-	@OneToOne
-	private Ciudad capital;
+//	@OneToOne
+//	private Ciudad capital;
 	@ManyToOne
 	private Continente continente;
 	
@@ -55,14 +56,14 @@ public class Pais {
 	}
 
 
-	public Ciudad getCapital() {
-		return capital;
-	}
+//	public Ciudad getCapital() {
+//		return capital;
+//	}
 
 
-	public void setCapital(Ciudad capital) {
-		this.capital = capital;
-	}
+// void setCapital(Ciudad capital) {
+//		this.capital = capital;
+//	}
 
 
 	public Continente getContinente() {

@@ -2,18 +2,20 @@ package ar.edu.unlam.tallerweb1;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.aspectj.lang.annotation.Before;
+import org.hibernate.criterion.Restrictions;
 import org.junit.Test;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
-import antlr.collections.List;
 import ar.edu.unlam.tallerweb1.modelo.Ciudad;
 import ar.edu.unlam.tallerweb1.modelo.Continente;
 import ar.edu.unlam.tallerweb1.modelo.Pais;
 import ar.edu.unlam.tallerweb1.modelo.Ubicacion;
 
-public class testCiudadPaisContinente {
+public class testCiudadPaisContinente extends SpringTest {
 
 	
 	@Test
@@ -90,7 +92,7 @@ public class testCiudadPaisContinente {
 		Ciudad ciudad22 = new Ciudad("Paris", pais15, coordenadas22);
 		Ciudad ciudad23 = new Ciudad("Lyon", pais15, coordenadas23);
 		
-		pais1.setCapital(ciudad1);
+/*		pais1.setCapital(ciudad1);
 		pais2.setCapital(ciudad3);
 		pais3.setCapital(ciudad4);
 		pais4.setCapital(ciudad6);
@@ -102,12 +104,17 @@ public class testCiudadPaisContinente {
 		pais11.setCapital(ciudad16);
 		pais13.setCapital(ciudad18);
 		pais14.setCapital(ciudad20);
-		pais15.setCapital(ciudad22);
+		pais15.setCapital(ciudad22);*/
 		
 		
 		List <Pais> ingles = getSession().createCriteria(Pais.class)
-		;
+				.add(Restrictions.eq("idioma", "Ingles"))
+				.list();
 		
+		
+		Integer valorEsperado = 2;
+		Integer valorObtenido = ingles.size();
+		assertEquals(valorEsperado, valorObtenido);
 		
 	}
 
