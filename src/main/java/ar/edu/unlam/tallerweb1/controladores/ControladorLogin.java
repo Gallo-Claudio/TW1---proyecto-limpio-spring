@@ -61,6 +61,40 @@ public class ControladorLogin {
 	public ModelAndView irAHome() {
 		return new ModelAndView("home");
 	}
+	
+	
+	
+// **************** Agrgado en la clase de MVC del 02/05/2019 **********************	
+	@RequestMapping(path = "/hola")
+	public ModelAndView verHolaMundo(){
+		ModelMap modelo = new ModelMap();  //Coleccion Ma
+		String nombre = "Ricardo";
+
+		modelo.put("nombre", nombre);
+				
+		return new ModelAndView("holamundo", modelo);
+	}
+	
+	@RequestMapping(path = "/verusuario")
+	public ModelAndView verUsuarios(){
+		ModelMap modelo = new ModelMap(); //Coleccion Map
+		
+		Usuario us1 = new Usuario();
+		us1.setEmail("andres@gmail.com");
+		us1.setRol("Admin");
+		
+		Usuario us2 = new Usuario();
+		us2.setEmail("sebastian@gmail.com");
+		us2.setRol("User");
+		
+		modelo.put("usuario1", us1);
+		modelo.put("sebastian", us2);
+		
+		return new ModelAndView("verusuarios", modelo);
+	}
+// **************** Agrgado en la clase de MVC del 02/05/2019 **********************	
+	
+	
 
 	// Escucha la url /, y redirige a la URL /login, es lo mismo que si se invoca la url /login directamente.
 	@RequestMapping(path = "/", method = RequestMethod.GET)
