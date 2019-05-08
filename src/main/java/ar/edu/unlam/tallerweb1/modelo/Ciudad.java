@@ -15,12 +15,14 @@ public class Ciudad {
 		
 	
 	//Constructor
-	public Ciudad(String nombre, Pais pais, Ubicacion ubicacion) {
+	public Ciudad (String nombre, Pais pais, Ubicacion ubicacion) {
 		this.nombre = nombre;
 		this.pais = pais;
 		this.ubicacion = ubicacion;
 	}
 
+	public Ciudad () {
+	}
 	
 	//Getters y Setters
 	public String getNombre() {

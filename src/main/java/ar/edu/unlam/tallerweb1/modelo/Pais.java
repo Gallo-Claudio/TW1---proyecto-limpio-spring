@@ -24,7 +24,8 @@ public class Pais {
 		this.continente = continente;
 	}
 
-
+	public Pais () {
+	}
 	
 	//Getters y Setters
 	public String getNombre() {

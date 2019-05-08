@@ -303,12 +303,12 @@ public class testCiudadPaisContinente extends SpringTest {
 		assertEquals(valorEsperado, valorObtenido);
 		
 		//Verifico que los datos devueltos sean los esperados
-/*		Iterator <Pais> r = capitalesTropicoCancer.iterator();
+		Iterator <Pais> r = capitalesTropicoCancer.iterator();
 		Pais registro;
 		while(r.hasNext()) {
 			registro = r.next();
-			assertThat(registro.getCapital().getUbicacion()>23.0D);
-		}*/
+			assertTrue(registro.getCapital().getUbicacion().getLatitud()>23.0D);
+		}
 	}
 
 	@Test
@@ -325,9 +325,9 @@ public class testCiudadPaisContinente extends SpringTest {
 		assertEquals(valorEsperado, valorObtenido);
 		
 		//Verifico que los datos devueltos sean los esperados
-/*		for (Ciudad registro: hemisferioSur) {
-			assertThat(registro.getUbicacion()<0.0D);
-		}*/
+		for (Ciudad registro: hemisferioSur) {
+			assertTrue(registro.getUbicacion().getLatitud()<0.0D);
+		}
 	}
 
 }

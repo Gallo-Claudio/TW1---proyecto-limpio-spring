@@ -18,6 +18,9 @@ public class Continente {
 		this.nombre = nombre;
 	}
 
+	public Continente () {
+	}
+	
 	
 	//Getters y Setters
 	public Long getId() {
