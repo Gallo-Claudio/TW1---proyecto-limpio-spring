@@ -1,11 +1,14 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import java.util.Map;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -92,8 +95,16 @@ public class ControladorLogin {
 		
 		return new ModelAndView("verusuarios", modelo);
 	}
-// **************** Agrgado en la clase de MVC del 02/05/2019 **********************	
+// **************** Agrgado en la clase de MVC del 02/05/2019 **********************
 	
+	// **************** Practica PathVariable del 08/05/2019 **********************	
+	@RequestMapping(value="/str/{countryName}/{userName}", method=RequestMethod.GET)
+	public ModelAndView getData(@PathVariable Map<String, String> path) {
+
+		
+		
+	}
+	// **************** Practica PathVariable del 08/05/2019 **********************
 	
 
 	// Escucha la url /, y redirige a la URL /login, es lo mismo que si se invoca la url /login directamente.
