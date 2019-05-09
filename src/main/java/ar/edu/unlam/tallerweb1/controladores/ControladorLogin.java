@@ -95,16 +95,22 @@ public class ControladorLogin {
 		
 		return new ModelAndView("verusuarios", modelo);
 	}
-// **************** Agrgado en la clase de MVC del 02/05/2019 **********************
+// **************** Agregado en la clase de MVC del 02/05/2019 **********************
 	
-	// **************** Practica PathVariable del 08/05/2019 **********************	
-	@RequestMapping(value="/str/{countryName}/{userName}", method=RequestMethod.GET)
+	// **************** Práctica PathVariable del 08/05/2019 **********************	
+/*	@RequestMapping(value="/{nombre-operacion}/{cadena}", method=RequestMethod.GET)
 	public ModelAndView getData(@PathVariable Map<String, String> path) {
 
-		
-		
-	}
-	// **************** Practica PathVariable del 08/05/2019 **********************
+		String operacion = path.get("nombre-operacion"); 
+		String cadena = path.get("cadena");
+
+		ModelAndView m = new ModelAndView();
+		m.addObject("msg", "Country: " + operacion + " <=======>  Name:  " + cadena);
+		m.setViewName("success");
+		return m;	
+	} */
+	
+	// **************** Práctica PathVariable del 08/05/2019 **********************
 	
 
 	// Escucha la url /, y redirige a la URL /login, es lo mismo que si se invoca la url /login directamente.
