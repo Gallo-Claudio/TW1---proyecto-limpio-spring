@@ -1,5 +1,7 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
@@ -36,7 +39,7 @@ public class ControladorLogin {
 		modelo.put("usuario", usuario);
 		// Se va a la vista login (el nombre completo de la lista se resuelve utilizando el view resolver definido en el archivo spring-servlet.xml)
 		// y se envian los datos a la misma  dentro del modelo
-		return new ModelAndView("login", modelo);
+		return new ModelAndView("login", modelo); //En la vista (archivo.jsp) lo llamo con la key del map, en este caso "usuario"
 	}
 
 	// Este metodo escucha la URL validar-login siempre y cuando se invoque con metodo http POST
@@ -63,19 +66,21 @@ public class ControladorLogin {
 	@RequestMapping(path = "/home", method = RequestMethod.GET)
 	public ModelAndView irAHome() {
 		return new ModelAndView("home");
-	}
+	}	
 	
 	
-	
-// **************** Agrgado en la clase de MVC del 02/05/2019 **********************	
-	@RequestMapping(path = "/hola")
-	public ModelAndView verHolaMundo(){
-		ModelMap modelo = new ModelMap();  //Coleccion Ma
+////////////////////////////////// Agrgado en la clase de MVC del 02/05/2019 //////////////////////////////	
+	@RequestMapping(path = "/hola")      // *HOLAS - Path (ruta) con la que llamo a la vista desde el navegador
+	public ModelAndView verHolaMundo(){     // *VERHOLAMUNDO - Nombre como llamo al metodo asociado al RequestMapping
+		ModelMap modelo = new ModelMap();   //Coleccion Map
 		String nombre = "Ricardo";
 
-		modelo.put("nombre", nombre);
+		modelo.put("nombre", nombre);       //Agrego una [key] y [value] en la coleccion Map
 				
-		return new ModelAndView("holamundo", modelo);
+		return new ModelAndView("holamundo", modelo);   // *HOLAMUNDO - Nombre de la vista (archivos con la extension .jsp)
+		
+		// Los nombres del path, del metodo y de la vista, pueden llamarse de forma distinta entre si. Pero se recomienda que tengan el mismo nombre para mantener una coherencia y mayor claridad
+
 	}
 	
 	@RequestMapping(path = "/verusuario")
@@ -95,23 +100,148 @@ public class ControladorLogin {
 		
 		return new ModelAndView("verusuarios", modelo);
 	}
-// **************** Agregado en la clase de MVC del 02/05/2019 **********************
-	
-	// **************** Práctica PathVariable del 08/05/2019 **********************	
-/*	@RequestMapping(value="/{nombre-operacion}/{cadena}", method=RequestMethod.GET)
-	public ModelAndView getData(@PathVariable Map<String, String> path) {
+// *************************************************************************************************
 
-		String operacion = path.get("nombre-operacion"); 
-		String cadena = path.get("cadena");
 
-		ModelAndView m = new ModelAndView();
-		m.addObject("msg", "Country: " + operacion + " <=======>  Name:  " + cadena);
-		m.setViewName("success");
-		return m;	
-	} */
+////////////////////////////////////// Clase del 9/5/2019 //////////////////////////////////////////
+
+	/// USO DEL REQUESTPARAM
+	/// Metodo Get lleva datos desde el controlador hacia la vista
+	/// Anotacion en la URL - localhost:8080/holis?nombre=VARAIBLE1&apellido=VARIABLE2
+@RequestMapping(path = "/holis", method = RequestMethod.GET)   //Request mapping --->"action"  (Url+Metodo Http) por default es Get, (si no se pone)
+public ModelAndView holis(@RequestParam (value="nombre") String firstname, @RequestParam (value="apellido") String secondname){        /// Metodo que devuelve la vista
+ModelMap modelo = new ModelMap();                             //Coleccion Map (Key-Value)   ---> Creo un modelo - A traves del Map viajan los datos
+modelo.put ("nombrePersona", firstname);
+modelo.put ("apellidoPersona", secondname);
+
+return new ModelAndView("holis", modelo);        // [holis] nombre de la vista - [modelo] nombre de la coleccion Map, estamos pasando la informacion que esta en el MAp
+}
+
+//**************************************************************************************************
 	
-	// **************** Práctica PathVariable del 08/05/2019 **********************
 	
+/////////////////////////////// Actions pasados por Agustina (con sus respectivas vistas) - Ejercicios del 9/5/2019 ///////////////////////////////////////	
+	
+@RequestMapping( "/bienvenido")    
+public ModelAndView metodo() {     
+	ModelMap modelo = new ModelMap();
+	
+	modelo.put("saludo", "hola rocio");
+	
+	return new ModelAndView("bienvenido",modelo);   
+	
+}
+
+@RequestMapping( "/holan")
+public ModelAndView lista(){
+	ModelMap modelo = new ModelMap();
+	List<String> lista= new ArrayList();
+	modelo.put("saludo", "hola rocio");
+	
+	return new ModelAndView("bienvenido",modelo);
+}
+
+@RequestMapping(path = "variables/{caracteres}/{repeticion}", method = RequestMethod.GET)
+public ModelAndView cambiarCaracteres(@PathVariable ("caracteres")String caracter, @PathVariable ("repeticion")Integer repeticion) {
+	ModelMap model = new ModelMap();
+	List<String> lista = new ArrayList();
+	//String caracter= "caracteres";
+	
+	
+	for(int i=0;i<repeticion;i++){
+		lista.add(caracter);
+	model.put("listaKey", lista);}
+	
+	
+	//String cadenaAconvertir= cadena.toUpperCase();
+	
+	//model.put("cadenaModel", cadenaAconvertir + cadena);
+
+	
+		return new ModelAndView("cadena",model);
+	}
+
+@RequestMapping(path = "modelattribute/{caracteres}/{repeticion}", method = RequestMethod.POST)
+public ModelAndView cambiar(@PathVariable ("caracteres")String caracter,@PathVariable ("repeticion")Integer repeticion) {
+	ModelMap model = new ModelMap();
+	List<String> lista = new ArrayList();
+	//String caracter= "caracteres";
+	
+	
+	for(int i=0;i<repeticion;i++){
+		lista.add(caracter);
+	model.put("listaKey", lista);}
+	
+	
+	//String cadenaAconvertir= cadena.toUpperCase();
+	
+	//model.put("cadenaModel", cadenaAconvertir + cadena);
+
+	
+		return new ModelAndView("cadena",model);
+	}
+
+@RequestMapping(path = "/saludar", method = RequestMethod.GET)
+public ModelAndView saludar (@RequestParam (value="nombre") String nombre, @RequestParam (value="ap") String apellido) {
+	ModelMap model = new ModelMap();
+	//List<String> lista = new ArrayList();
+	//String caracter= "caracteres";
+	//lista.add(caracter);
+	
+	model.put("nombre", nombre);
+	model.put("ap",apellido);
+	
+	
+	//String cadenaAconvertir= cadena.toUpperCase();
+	
+	//model.put("cadenaModel", cadenaAconvertir + cadena);
+
+	
+		return new ModelAndView("cadena",model);
+	}
+
+/*@RequestMapping(path = "/saludar", method = RequestMethod.GET)
+public ModelAndView Otro(){ 
+	ModelMap model = new ModelMap();
+	//List<String> lista = new ArrayList();
+	//String caracter= "caracteres";
+	//lista.add(caracter);
+	
+	//model.put("nombre", nombre);
+	//model.put("ap",apellido);
+	model.put("cadenaModel", "hola");
+	
+	
+	//String cadenaAconvertir= cadena.toUpperCase();
+	
+	//model.put("cadenaModel", cadenaAconvertir + cadena);
+
+	
+		return new ModelAndView("cadena",model);
+	}
+*/
+
+@RequestMapping( "/usuarios")
+public ModelAndView metodouser() {
+	ModelMap modelo = new ModelMap();
+	Usuario user1=new Usuario();
+	user1.setEmail("user_primero@hotmail.com");
+	user1.setPassword("41894367");
+	user1.setRol("usuario");
+	Usuario user2=new Usuario();
+	user2.setEmail("user_segundo@64hotmail.com");
+	user2.setPassword("76349814");
+	user2.setRol("administrador");
+
+	modelo.put("usuario1", user1);
+	modelo.put("usuario2", user2);
+	return new ModelAndView("usuarios",modelo);
+}
+
+	//**********************************************************************************************************************************
+
+
+
 
 	// Escucha la url /, y redirige a la URL /login, es lo mismo que si se invoca la url /login directamente.
 	@RequestMapping(path = "/", method = RequestMethod.GET)
