@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import ar.edu.unlam.tallerweb1.modelo.Persona;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioLogin;
 
@@ -235,11 +236,45 @@ public ModelAndView metodouser() {
 
 	modelo.put("usuario1", user1);
 	modelo.put("usuario2", user2);
-	return new ModelAndView("usuarios",modelo);
+	return new ModelAndView("usuarios", modelo);
 }
 
 	//**********************************************************************************************************************************
 
+
+/////////////////////////////////////////////////// EJERCICIO //////////////////////////////////////////////////////////////////
+
+// action 1 - Generar vista formulario y le paso objeto persona vacio
+// action 2 - Pasa los datos por POST
+// action 3 - Generar vista listado
+
+
+//ACTION 1
+@RequestMapping("/formulario")
+public ModelAndView presentarFormulario() {
+	ModelMap modelo = new ModelMap();
+	Persona persona = new Persona();
+	modelo.put("identidad", persona);	
+	
+	return new ModelAndView ("formulario", modelo);
+}
+
+//ACTION 2
+@RequestMapping(method = RequestMethod.POST)
+public ModelAndView validarLogin(@ModelAttribute("usuarioPersona") Persona usuarioPersona, HttpServletRequest request) {
+	ModelMap model = new ModelMap();
+
+	
+		
+		
+		
+		
+		return new ModelAndView("redirect:/formulario");
+	
+}
+
+
+//******************************************************************************************************************************
 
 
 
