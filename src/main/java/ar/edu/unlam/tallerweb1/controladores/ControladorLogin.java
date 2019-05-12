@@ -252,28 +252,28 @@ public ModelAndView metodouser() {
 //ACTION 1
 @RequestMapping("/formulario")
 public ModelAndView presentarFormulario() {
-	ModelMap modelo = new ModelMap();
-	Persona persona = new Persona();
-	modelo.put("identidad", persona);	
+	ModelMap modelo = new ModelMap();     // Creo un ModelMap para pasar la info a la vista
+	Persona persona = new Persona();      // Instancio una persona para pasar un objeto vacio a traves del ModelMap a la vista
+	modelo.put("identidad", persona);	  // Agrego el objeto a la coleccion Map (ModelMap)
 	
-	return new ModelAndView ("formulario", modelo);
+	return new ModelAndView ("formulario", modelo);   // voy a la vista formulario y paso el objeto persona a traves de la instancia (modelo) del ModelMap 
 }
 
-List <Persona> listadoPersonas = new ArrayList();
+List <Persona> listadoPersonas = new ArrayList();     // defino una coleccion Array, donde guardar los datos recibidos de la vista formulario
 //ACTION 2
 @RequestMapping(path = "/formulario", method = RequestMethod.POST)
-public ModelAndView agregar(@ModelAttribute("usuarioPersona") Persona usuarioPersona, HttpServletRequest request) {
+public ModelAndView agregar(@ModelAttribute("usuarioPersona") Persona usuarioPersona, HttpServletRequest request) {  //Recibo a traves de ModelAttribute el objeto persona enviado desde la vista formulario
 	
-	listadoPersonas.add(usuarioPersona);
+	listadoPersonas.add(usuarioPersona);     // Agrego el objeto al Array
 	
-	return new ModelAndView("redirect:/formulario");	
+	return new ModelAndView("redirect:/formulario");	// redirecciono a la vista formulario
 }
 
 //ACTION 3
 @RequestMapping("/listado")
 public ModelAndView listarPersonas() {
 	ModelMap listar = new ModelMap();
-	listar.put("listadop", listadoPersonas);
+	listar.put("listadop", listadoPersonas);    // Agrego la coleccion ArrayList (List) a la coleccion ModelMap (Map)
 	
 	return new ModelAndView("listado", listar);
 }
