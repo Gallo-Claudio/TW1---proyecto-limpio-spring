@@ -112,8 +112,8 @@ public class ControladorLogin {
 @RequestMapping(path = "/holis", method = RequestMethod.GET)   //Request mapping --->"action"  (Url+Metodo Http) por default es Get, (si no se pone)
 public ModelAndView holis(@RequestParam (value="nombre") String firstname, @RequestParam (value="apellido") String secondname){        /// Metodo que devuelve la vista
 ModelMap modelo = new ModelMap();                             //Coleccion Map (Key-Value)   ---> Creo un modelo - A traves del Map viajan los datos
-modelo.put ("nombrePersona", firstname);
-modelo.put ("apellidoPersona", secondname);
+modelo.put ("nombrePersona", firstname);					  // Key=nombrePersona    Value=firstname
+modelo.put ("apellidoPersona", secondname);                   // Key=apellidoPersona  Value=secondname
 
 return new ModelAndView("holis", modelo);        // [holis] nombre de la vista - [modelo] nombre de la coleccion Map, estamos pasando la informacion que esta en el MAp
 }
@@ -259,18 +259,23 @@ public ModelAndView presentarFormulario() {
 	return new ModelAndView ("formulario", modelo);
 }
 
+List <Persona> listadoPersonas = new ArrayList();
 //ACTION 2
-@RequestMapping(method = RequestMethod.POST)
-public ModelAndView validarLogin(@ModelAttribute("usuarioPersona") Persona usuarioPersona, HttpServletRequest request) {
-	ModelMap model = new ModelMap();
+@RequestMapping(path = "/formulario", method = RequestMethod.POST)
+public ModelAndView agregar(@ModelAttribute("usuarioPersona") Persona usuarioPersona, HttpServletRequest request) {
+	
+	listadoPersonas.add(usuarioPersona);
+	
+	return new ModelAndView("redirect:/formulario");	
+}
 
+//ACTION 3
+@RequestMapping("/listado")
+public ModelAndView listarPersonas() {
+	ModelMap listar = new ModelMap();
+	listar.put("listadop", listadoPersonas);
 	
-		
-		
-		
-		
-		return new ModelAndView("redirect:/formulario");
-	
+	return new ModelAndView("listado", listar);
 }
 
 

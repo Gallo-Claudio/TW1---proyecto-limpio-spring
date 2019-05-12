@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,14 +10,15 @@
 </head>
 <body>
 	<div class="recuadro">
-        <form actions="agregar" method="POST"  modelAttribute="usuarioPersona">
-          <div><input name="nombre" placeholder="Ingrese el Nombre" />
-		  <input name="apellido" placeholder="Ingrese el Apellido" />     		  
+        <form:form actions="agregar" method="POST" modelAttribute="usuarioPersona">
+          <div>
+          <input name="nombre" id="nombre" placeholder="Ingrese el Nombre" />
+		  <input name="apellido" id="apellido" placeholder="Ingrese el Apellido" />     		  
 		  </div>			
 		  <button Type="Submit"/>Agregar</button>
-        </form>
+        </form:form>
         <div class="limpia-float"></div>
-        <a href="#">LISTAR</a>           
+        <a href="/proyecto-limpio-spring/listado">LISTAR</a>           
 	</div>             
 </body>
 </html>
