@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -67,4 +68,36 @@ public class ControladorLogin {
 	public ModelAndView inicio() {
 		return new ModelAndView("redirect:/login");
 	}
+	
+	
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	@RequestMapping("/texto/{operacion}/{cadena}")
+	public ModelAndView transformar (@PathVariable ("operacion") String operacion, @PathVariable("cadena") String cadena) {
+		Integer longitud = 0;
+		String cambio = "";
+		ModelMap opera = new ModelMap();
+		
+		if(operacion.equalsIgnoreCase("cantidadDeCaracteres")){
+			longitud = cadena.length();
+			opera.put("hace", longitud);		
+		}
+		else if(operacion.equalsIgnoreCase("pasarAMayuscula")){
+			cambio = cadena.toUpperCase();
+			opera.put("hace", cambio);
+		}
+		else if(operacion.equalsIgnoreCase("pasarAMiniscula")){
+			cambio = cadena.toLowerCase();
+			opera.put("hace", cambio);
+		}
+		else if(operacion.equalsIgnoreCase("invertirOrden")){
+			StringBuilder builder=new StringBuilder(cadena);
+			String invertida = builder.reverse().toString();
+			opera.put("hace", invertida);
+		}		
+		
+		return new ModelAndView("texto", opera);
+	}
+	
 }
