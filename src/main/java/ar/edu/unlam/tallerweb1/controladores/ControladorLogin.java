@@ -126,101 +126,47 @@ return new ModelAndView("holis", modelo);        // [holis] nombre de la vista -
 @RequestMapping( "/bienvenido")    
 public ModelAndView metodo() {     
 	ModelMap modelo = new ModelMap();
-	
 	modelo.put("saludo", "hola rocio");
 	
 	return new ModelAndView("bienvenido",modelo);   
-	
 }
 
-@RequestMapping( "/holan")
-public ModelAndView lista(){
-	ModelMap modelo = new ModelMap();
-	List<String> lista= new ArrayList();
-	modelo.put("saludo", "hola rocio");
-	
-	return new ModelAndView("bienvenido",modelo);
-}
 
 @RequestMapping(path = "variables/{caracteres}/{repeticion}", method = RequestMethod.GET)
 public ModelAndView cambiarCaracteres(@PathVariable ("caracteres")String caracter, @PathVariable ("repeticion")Integer repeticion) {
 	ModelMap model = new ModelMap();
-	List<String> lista = new ArrayList();
-	//String caracter= "caracteres";
-	
+	List<String> lista = new ArrayList();	
 	
 	for(int i=0;i<repeticion;i++){
 		lista.add(caracter);
-	model.put("listaKey", lista);}
-	
-	
-	//String cadenaAconvertir= cadena.toUpperCase();
-	
-	//model.put("cadenaModel", cadenaAconvertir + cadena);
-
-	
-		return new ModelAndView("cadena",model);
 	}
+	model.put("listaKey", lista);
+	
+	return new ModelAndView("cadena",model);
+}
 
 @RequestMapping(path = "modelattribute/{caracteres}/{repeticion}", method = RequestMethod.POST)
-public ModelAndView cambiar(@PathVariable ("caracteres")String caracter,@PathVariable ("repeticion")Integer repeticion) {
+public ModelAndView cambiar(@PathVariable ("caracteres")String caracter, @PathVariable ("repeticion")Integer repeticion) {
 	ModelMap model = new ModelMap();
-	List<String> lista = new ArrayList();
-	//String caracter= "caracteres";
-	
+	List<String> lista = new ArrayList();	
 	
 	for(int i=0;i<repeticion;i++){
 		lista.add(caracter);
 	model.put("listaKey", lista);}
 	
-	
-	//String cadenaAconvertir= cadena.toUpperCase();
-	
-	//model.put("cadenaModel", cadenaAconvertir + cadena);
-
-	
-		return new ModelAndView("cadena",model);
-	}
+	return new ModelAndView("cadena",model);
+}
 
 @RequestMapping(path = "/saludar", method = RequestMethod.GET)
 public ModelAndView saludar (@RequestParam (value="nombre") String nombre, @RequestParam (value="ap") String apellido) {
 	ModelMap model = new ModelMap();
-	//List<String> lista = new ArrayList();
-	//String caracter= "caracteres";
-	//lista.add(caracter);
 	
 	model.put("nombre", nombre);
 	model.put("ap",apellido);
 	
-	
-	//String cadenaAconvertir= cadena.toUpperCase();
-	
-	//model.put("cadenaModel", cadenaAconvertir + cadena);
+	return new ModelAndView("cadena",model);
+}
 
-	
-		return new ModelAndView("cadena",model);
-	}
-
-/*@RequestMapping(path = "/saludar", method = RequestMethod.GET)
-public ModelAndView Otro(){ 
-	ModelMap model = new ModelMap();
-	//List<String> lista = new ArrayList();
-	//String caracter= "caracteres";
-	//lista.add(caracter);
-	
-	//model.put("nombre", nombre);
-	//model.put("ap",apellido);
-	model.put("cadenaModel", "hola");
-	
-	
-	//String cadenaAconvertir= cadena.toUpperCase();
-	
-	//model.put("cadenaModel", cadenaAconvertir + cadena);
-
-	
-		return new ModelAndView("cadena",model);
-	}
-*/
 
 @RequestMapping( "/usuarios")
 public ModelAndView metodouser() {

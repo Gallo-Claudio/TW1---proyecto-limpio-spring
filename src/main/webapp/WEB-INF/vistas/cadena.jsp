@@ -13,7 +13,7 @@
 
 <form action="" method="post">
 <input type="text" name="name">
-/*<h1>${nombre}</h1>
+<h1>${cadenaModel}</h1>
 <h1>${ap}</h1>
 <h1>${listaKey}</h1>
 
