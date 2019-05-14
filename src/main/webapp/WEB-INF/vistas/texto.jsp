@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<p>El resultado de ${operacion} sobre ${cadena} es ${hace}</p>
+<p>El resultado de <b>${operacion}</b> sobre <b>${cadena}</b> es <b>${hace}</b></p>
 </body>
 </html>
