@@ -10,7 +10,7 @@
 </head>
 <body>
 	<div class="recuadro">
-        <form:form actions="agregar" method="POST" modelAttribute="usuarioPersona">
+        <form:form actions="formulario" method="POST" modelAttribute="usuarioPersona">  <%-- Terminar de preguntar que valor debe ir en actions porque funciona hasta estando vacio--%>
           <div>
           <input name="nombre" id="nombre" placeholder="Ingrese el Nombre" />
 		  <input name="apellido" id="apellido" placeholder="Ingrese el Apellido" />     		  
