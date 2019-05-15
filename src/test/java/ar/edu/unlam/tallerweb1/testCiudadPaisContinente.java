@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.junit.Before;
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 import org.junit.Test;
 import org.springframework.test.annotation.Rollback;
@@ -291,10 +292,19 @@ public class testCiudadPaisContinente extends SpringTest {
 	@Transactional
 	@Rollback (true)
 	public void testQueBuscaTodosLosPaisesCuyaCapitalEstanAlNorteDelTropicoDeCancer() {
+		//	Criterion mayor=Restrictions.gt("buscaLatitud.latitud", 23.0D);
+		//	Criterion menor = Restrictions.lt("buscaLatitud.latitud", -40.0D);
+	
 		List <Pais> capitalesTropicoCancer = getSession().createCriteria(Pais.class)
 				.createAlias("capital", "buscaCapital")
 				.createAlias("capital.ubicacion", "buscaLatitud")
 				.add(Restrictions.gt("buscaLatitud.latitud", 23.0D))
+				
+		// Para agregar una restriccion con condicion AND o OR	
+		// en vez de poner ---->   Restrictions.gt("buscarLatitu.latitud", 23.0D)
+		// lo podemos reemplazar por el Criterion correspondiente declararlos previamente (ver arriba)
+		// en este caso seria por --->   mayor
+		//		.add(Restrictions.or(Restrictions.gt("buscaLatitud.latitud", 23.0D), Restrictions.lt("buscaLatitud.latitud", -40.0D)))
 				.list();
 			
 		// Verifico que la cantidad de registros devueltos sea la esperada
