@@ -16,8 +16,8 @@ import ar.edu.unlam.tallerweb1.modelo.*;
 public class testMapeos extends SpringTest {
 
 	@Test
-	@Transactional
-	@Rollback (true)
+	@Transactional      //  <------------ Vuelve hacia atras la operacion si hubo algun error en alguno de los pasos
+	@Rollback (true)    //  <------------ Borra los datso de la BD despues de haber realizado el tets
 	public void test() {
 		Empresa empresa1 = new Empresa();
 		empresa1.setNombre("Diamante");
