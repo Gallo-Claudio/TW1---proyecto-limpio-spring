@@ -7,15 +7,15 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import javax.inject.Inject;
-
+// DAO --> objeto de acceso a datos (en ingles, data access object, abreviado DAO)
 // implelemtacion del DAO de usuarios, la anotacion @Repository indica a Spring que esta clase es un componente que debe
 // ser manejado por el framework, debe indicarse en applicationContext que busque en el paquete ar.edu.unlam.tallerweb1.dao
 // para encontrar esta clase.
 @Repository("usuarioDao")
 public class UsuarioDaoImpl implements UsuarioDao {
 
-	// Como todo dao maneja acciones de persistencia, normalmente estar√° inyectado el session factory de hibernate
-	// el mismo est√° difinido en el archivo hibernateContext.xml
+	// Como todo dao maneja acciones de persistencia, normalmente estara° inyectado el session factory de hibernate
+	// el mismo esta° definido en el archivo hibernateContext.xml
 	@Inject
     private SessionFactory sessionFactory;
 
